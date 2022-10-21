@@ -31,11 +31,12 @@ type Avoid struct {
 }
 
 func (Avoid *Avoid) Push(key string, fn context.CancelFunc) {
+	Avoid.Lock()
+	defer Avoid.Unlock()
 	if Avoid.fn == nil {
 		Avoid.fn = map[string]context.CancelFunc{}
 	}
-	Avoid.Lock()
-	defer Avoid.Unlock()
+
 	if fn, ok := Avoid.fn[key]; ok {
 		fn()
 	}
