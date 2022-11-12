@@ -1,4 +1,49 @@
-# duplicate
+# Income
+
+```plantuml
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+group queue.Pool
+  SD -> Pool: {id}
+  Pool --> SD : pid
+  SD -> Pool: {id}
+  Pool --> SD : pid
+  SD -> Pool: {id}
+  Pool --> SD : pid
+  SD -> Pool: {id}
+  Pool --> SD : pid
+end
+
+
+group (duplicate.Avoid)
+  SD -> Filter: {id}
+  SD -> Filter: {id}
+  SD -> Filter: {id}
+  SD -> Filter: {id}
+end
+note right
+Collect duplicate
+https://github.com/alexsuslov/duplicate
+end note
+group Pool
+  Filter -> Agent: {id}
+end
+
+note right
+Queue pool (Ram, Stored)
+https://github.com/alexsuslov/queue
+end note
+
+  Agent -> SD: Get state by id
+  SD --> Agent: State
+Agent->Postbox : Post
+Postbox -->Agent : Result add to queue
+
+@enduml
+
+```
 
 ```go
 const service="SERVICE"
