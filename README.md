@@ -21,4 +21,11 @@ go func(p *queue.Pool, d duplicate.Avoid) {
   }
 }(Pool, Avoid)
 
+func(w http.ResponseWriter, r *http.Request) {
+  key := r.URL.Query().Get("key")
+  Pool.Push(key)
+  w.Write([]byte("done"))
+}
+
+
 ```
