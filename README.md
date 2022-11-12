@@ -1,6 +1,6 @@
 # Income
 
-![](diagram.svg)
+![](sd2agent.png)
 
 ```go
 const service="SERVICE"
