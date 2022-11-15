@@ -18,7 +18,7 @@ go func(p *queue.Pool, d *duplicate.Avoid) {
           Notify(service, key, err, err1)
         }
       }
-      d.Remove(req.ID)
+      d.Remove(key)
     }
   }
 }(Pool, Avoid)
