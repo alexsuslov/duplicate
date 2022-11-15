@@ -10,7 +10,7 @@ Avoid := &duplicate.Avoid{}
 
 go func(p *queue.Pool, d *duplicate.Avoid) {
   for{
-    if key, ok := Pool.Pop().(string); ok {
+    if key, ok := p.Pop().(string); ok {
       ctx, fn := context.WithCancel(context.Background())
       d.Push(key,fn)
       if err:=Post(ctx, key); err!=nil{
