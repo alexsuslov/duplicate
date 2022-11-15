@@ -8,7 +8,7 @@ const service="SERVICE"
 Pool := &queue.Pool{}
 Avoid := &duplicate.Avoid{}
 
-go func(p *queue.Pool, d duplicate.Avoid) {
+go func(p *queue.Pool, d *duplicate.Avoid) {
   for{
     if key, ok := Pool.Pop().(string); ok {
       ctx, fn := context.WithCancel(context.Background())
