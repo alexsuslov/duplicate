@@ -3,7 +3,6 @@
 ![](sd2agent1.png)
 
 ```go
-const service="SERVICE"
 
 Pool := &queue.Pool{}
 Avoid := &duplicate.Avoid{}
