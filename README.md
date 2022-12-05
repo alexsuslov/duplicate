@@ -10,16 +10,16 @@ Avoid := &duplicate.Avoid{}
 
 go func(p *queue.Pool, d *duplicate.Avoid) {
   for{
-    if key, ok := p.Pop().(string); ok {
-      ctx, fn := context.WithCancel(context.Background())
-      d.Push(key,fn)
-      if err:=Post(ctx, key); err!=nil{
-        if err1:=ErrorTicket(key, err); err1!=nil{
-          Notify(service, key, err, err1)
-        }
-      }
-      d.Remove(key)
-    }
+    if ok {
+			ctx, fn := context.WithCancel(context.Background())
+			d.Push(key, fn)
+			go func() {
+				Post(ctx, key)
+				if ctx.Err() == nil {
+					d.Remove(key)
+				}
+			}()
+		}
   }
 }(Pool, Avoid)
 
