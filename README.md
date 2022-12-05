@@ -8,9 +8,12 @@ const service="SERVICE"
 Pool := &queue.Pool{}
 Avoid := &duplicate.Avoid{}
 
-go func(p *queue.Pool, d *duplicate.Avoid) {
-  for{
-    if ok {
+go loop(Pool, Avoid)
+
+func loop(p *queue.Pool, d *duplicate.Avoid) {
+	for {
+		key, ok := p.Pop().(string)
+		if ok {
 			ctx, fn := context.WithCancel(context.Background())
 			d.Push(key, fn)
 			go func() {
@@ -20,8 +23,9 @@ go func(p *queue.Pool, d *duplicate.Avoid) {
 				}
 			}()
 		}
-  }
-}(Pool, Avoid)
+	}
+}
+
 
 func(w http.ResponseWriter, r *http.Request) {
   key := r.URL.Query().Get("key")
